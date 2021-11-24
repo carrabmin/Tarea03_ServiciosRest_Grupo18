@@ -50,17 +50,17 @@ public class DaoVideojuego {
 	 * Metodo que introduce una videojuego al final de la lista
 	 * @param v el videojuego que queremos introducir
 	 */
-	public String darAlta(Videojuego v) {
+	public Videojuego darAlta(Videojuego v) {
 		// Recorremos el ArrayLista listaVideojuegos y ponemos una condición para que no se 
 		// añadan videojuegos con nombre o ID duplicado:
 			for (Videojuego p: listaVideojuegos) {
 				if (p.getNombre().equalsIgnoreCase(v.getNombre()) || p.getId() == v.getId()) {
-					return "No podemos añadir el videojuego - Nombre o ID duplicado";
+					return null;
 				}
 			}			
 		// En el caso de que no se cumpla la condición if se añade el videojuego:
 		listaVideojuegos.add(v);
-		return "Videojuego añadido con exito";
+		return v;
 	}
 	
 	/**

@@ -95,9 +95,15 @@ public class ControladorVideojuego {
 	@PostMapping(path="videojuegos",consumes=MediaType.APPLICATION_JSON_VALUE,
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Videojuego> altaPersona(@RequestBody Videojuego v) {
-		System.out.println("altaVideojuego: objeto videojuego: " + v);
-		daoVideojuego.darAlta(v);
-		return new ResponseEntity<Videojuego>(v,HttpStatus.CREATED);//201 CREATED
+			System.out.println("altaVideojuego: objeto videojuego: " + v);
+			Videojuego vAux = daoVideojuego.darAlta(v);
+		if (vAux == null){
+			System.out.println("El ID o el nombre ya existe en la base de datos");
+			return new ResponseEntity<Videojuego>(HttpStatus.NOT_FOUND);
+		}else {
+			daoVideojuego.darAlta(v);
+			return new ResponseEntity<Videojuego>(v,HttpStatus.CREATED);//201 CREATED
+		}
 	}
 	
 	//GET LISTA VIDEOJUEGOS
